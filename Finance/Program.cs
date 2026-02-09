@@ -1,4 +1,8 @@
 
+using Finance.Data;
+using Finance.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace Finance
 {
     public class Program
@@ -6,6 +10,15 @@ namespace Finance
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+        
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(connectionString));
+
+            builder.Services.AddScoped<FinancaRepository>();
 
             // Add services to the container.
 
