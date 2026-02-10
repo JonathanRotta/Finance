@@ -24,11 +24,20 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Financas>> Post(CreateFinancaRequest request)
+        public async Task<ActionResult<Financas>> Post(CreateFinancaDTO request)
         {
             var resultado = await _service.CriarFinanca(request);
             return Ok(resultado);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, CreateFinancaDTO request)
+        {
+            await _service.AlterarFinanca(id, request);
+            return NoContent();
+
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)

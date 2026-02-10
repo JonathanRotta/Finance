@@ -1,6 +1,7 @@
 ﻿using Finance.DTOs;
 using Finance.Models;
 using Finance.Repositories;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Finance.Services
 {
@@ -19,7 +20,7 @@ namespace Finance.Services
             return await _repository.GetAllAsync();
         }
 
-        public async Task<Financas> CriarFinanca(CreateFinancaRequest request)
+        public async Task<Financas> CriarFinanca(CreateFinancaDTO request)
         {
             
             var financa = new Financas
@@ -32,6 +33,23 @@ namespace Finance.Services
 
             await _repository.AddAsync(financa);
             return financa;
+        }
+
+        public async Task AlterarFinanca(int id, CreateFinancaDTO request)
+        {
+            var financaExistente = await _repository.GetByIdAsync(id);
+
+            if (financaExistente != null)
+            {
+                financaExistente.Valor = request.Valor;
+                financaExistente.Descricao = request.Descricao;
+                financaExistente.Categoria = request.Categoria;
+                financaExistente.DataCriacao = DateTime.UtcNow;
+
+            }
+
+            await _repository.UpdateAsync(financaExistente);
+
         }
 
         public async Task RemoverFinanca(int id)

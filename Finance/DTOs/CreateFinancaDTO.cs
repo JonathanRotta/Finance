@@ -2,7 +2,7 @@
 
 namespace Finance.DTOs
 {
-    public class CreateFinancaRequest
+    public class CreateFinancaDTO
     {
 
         [Required(ErrorMessage = "O valor é obrigatório")]

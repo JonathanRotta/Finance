@@ -20,9 +20,20 @@ namespace Finance.Repositories
             return await _context.Financas.ToListAsync();
         }
 
+        public async Task<Financas?> GetByIdAsync(int id)
+        {
+            return await _context.Financas.FindAsync(id);
+        }
+
         public async Task AddAsync(Financas financa)
         {
             await _context.Financas.AddAsync(financa);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Financas financa)
+        {
+            _context.Financas.Update(financa);
             await _context.SaveChangesAsync();
         }
 
