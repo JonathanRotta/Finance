@@ -25,5 +25,15 @@ namespace Finance.Repositories
             await _context.Financas.AddAsync(financa);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var financa = await _context.Financas.FindAsync(id);
+
+            if(id != null){
+                _context.Financas.Remove(financa);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

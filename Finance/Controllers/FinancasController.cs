@@ -1,6 +1,7 @@
 ﻿using Finance.DTOs;
 using Finance.Models;
 using Finance.Repositories;
+using Finance.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finance.Controllers
@@ -9,34 +10,33 @@ namespace Finance.Controllers
     [Route("api/[controller]")]
     public class FinancasController : ControllerBase
     {
-        private readonly FinancaRepository _repository;
+        private readonly FinancaService _service;
 
-        public FinancasController(FinancaRepository repository)
+        public FinancasController(FinancaService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Financas>>> Get() 
+        public async Task<ActionResult<List<Financas>>> Get()
         {
-            var financas = await _repository.GetAllAsync();
-            return Ok(financas);
+            return Ok(await _service.ListarFinancas());
         }
 
         [HttpPost]
-        public async Task<ActionResult<Financas>> Post(CreateFinancaRequest request) 
+        public async Task<ActionResult<Financas>> Post(CreateFinancaRequest request)
         {
-            var financa = new Financas
-            {
-                Valor = request.Valor,
-                Descricao = request.Descricao,
-                Categoria = request.Categoria,
-                DataCriacao = DateTime.UtcNow
-            };
+            var resultado = await _service.CriarFinanca(request);
+            return Ok(resultado);
+        }
 
-            await _repository.AddAsync(financa);
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _service.RemoverFinanca(id);
 
-            return Ok(financa);
+            return NoContent();
+
         }
     }
 }

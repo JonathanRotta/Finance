@@ -1,6 +1,7 @@
 
 using Finance.Data;
 using Finance.Repositories;
+using Finance.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finance
@@ -19,6 +20,8 @@ namespace Finance
                 options.UseNpgsql(connectionString));
 
             builder.Services.AddScoped<FinancaRepository>();
+
+            builder.Services.AddScoped<FinancaService>();
 
             // Add services to the container.
 

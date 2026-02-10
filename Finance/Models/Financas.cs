@@ -6,7 +6,7 @@ namespace Finance.Models
     [Table("financas")]
     public class Financas
     {
-        [Key] // Chave primária
+        [Key] 
         public int Id { get; set; }
 
         [Required]
