@@ -27,6 +27,10 @@ namespace Finance
 
             builder.Services.AddScoped<FinancaService>();
 
+            builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+            builder.Services.AddScoped<UsuarioService>();
+
             // Add services to the container.
 
             builder.Services.AddControllers();

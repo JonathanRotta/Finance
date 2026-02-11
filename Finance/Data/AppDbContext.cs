@@ -14,6 +14,8 @@ namespace Finance.Data
         
         public DbSet<Financas> Financas { get; set; }
 
+        public DbSet<Usuario> Usuario { get; set; }
+
         
     }
 }
