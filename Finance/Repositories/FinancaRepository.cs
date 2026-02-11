@@ -6,7 +6,7 @@ using Microsoft.VisualBasic;
 
 namespace Finance.Repositories
 {
-    public class FinancaRepository
+    public class FinancaRepository : IFinancaRepository
     {
         private readonly AppDbContext _context;
 
@@ -15,7 +15,7 @@ namespace Finance.Repositories
             _context = context;
         }
 
-        public async Task<List<Financas>> GetAllAsync()
+        public async Task<IEnumerable<Financas>> GetAllAsync()
         {
             return await _context.Financas.ToListAsync();
         }

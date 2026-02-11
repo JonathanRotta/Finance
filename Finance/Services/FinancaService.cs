@@ -5,19 +5,24 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Finance.Services
 {
-    public class FinancaService
+    public class FinancaService : IFinancaService
     {
 
-        private readonly FinancaRepository _repository;
+        private readonly IFinancaRepository _repository;
 
-        public FinancaService(FinancaRepository repository)
+        public FinancaService(IFinancaRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<List<Financas>> ListarFinancas()
+        public async Task<IEnumerable<Financas>> ListarFinancas()
         {
             return await _repository.GetAllAsync();
+        }
+
+        public async Task<Financas> BuscarPorId(int id)
+        {
+            return await _repository.GetByIdAsync(id);
         }
 
         public async Task<Financas> CriarFinanca(CreateFinancaDTO request)

@@ -21,6 +21,10 @@ namespace Finance
 
             builder.Services.AddScoped<FinancaRepository>();
 
+            builder.Services.AddScoped<IFinancaRepository, FinancaRepository>();
+
+            builder.Services.AddScoped<IFinancaService, FinancaService>();
+
             builder.Services.AddScoped<FinancaService>();
 
             // Add services to the container.
