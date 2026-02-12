@@ -9,23 +9,19 @@ namespace Finance.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsuarioController : ControllerBase
-    {
+    public class UsuarioController : ControllerBase{
+
         private readonly UsuarioService _service;
 
-        public UsuarioController(UsuarioService service)
-        {
+        public UsuarioController(UsuarioService service){
             _service = service;
         }
-        [HttpPost]
 
-        public async Task<ActionResult<Usuario>> Post(CreateUsuarioDTO usuario)
-        {
+        [HttpPost]
+        public async Task<ActionResult<Usuario>> Post(CreateUsuarioDTO usuario){
             var resultado = await _service.CriarUsuario(usuario);
             return Ok(resultado);
         }
-        
-
         
 
     }

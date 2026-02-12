@@ -8,7 +8,8 @@ namespace Finance.Services
     {
         private readonly IUsuarioRepository _repository;
 
-        public UsuarioService(IUsuarioRepository repository) { 
+        public UsuarioService(IUsuarioRepository repository) 
+        { 
             _repository = repository;
         }
 
@@ -20,10 +21,8 @@ namespace Finance.Services
                 Nome = request.Nome,
                 Email = request.Email,
                 Senha = request.Senha,
-
             };
-
-           
+            
             await _repository.AddAsync(usuario);
             return usuario;
         }
