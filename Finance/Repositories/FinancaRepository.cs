@@ -41,7 +41,7 @@ namespace Finance.Repositories
         {
             var financa = await _context.Financas.FindAsync(id);
 
-            if(id != null){
+            if(financa != null){
                 _context.Financas.Remove(financa);
                 await _context.SaveChangesAsync();
             }

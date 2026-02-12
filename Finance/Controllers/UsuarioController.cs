@@ -22,7 +22,32 @@ namespace Finance.Controllers
             var resultado = await _service.CriarUsuario(usuario);
             return Ok(resultado);
         }
-        
 
+        [HttpDelete]
+        public async Task Delete(int id) {
+            await _service.RemoverUsuario(id);
+            Console.WriteLine("usuario removido com sucesso");
+        
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO login)
+        {
+            var usuario = await _service.ValidarLogin(login);
+
+            if (usuario == null)
+            {
+               
+                return Unauthorized(new { message = "E-mail ou senha inválidos!" });
+            }
+
+      
+            return Ok(new
+            {
+                usuario.Id,
+                usuario.Nome,
+                usuario.Email
+            });
+        }
     }
 }

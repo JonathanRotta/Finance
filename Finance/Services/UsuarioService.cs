@@ -26,5 +26,23 @@ namespace Finance.Services
             await _repository.AddAsync(usuario);
             return usuario;
         }
+
+        public async Task RemoverUsuario(int id)
+        {
+
+            await _repository.DeleteAsync(id);
+
+        }
+
+        public async Task<Usuario?> ValidarLogin(LoginDTO login)
+        {
+            var usuario = await _repository.GetByEmailAsync(login.Email);
+
+            if (usuario == null) return null;
+
+            if (usuario.Senha != login.Senha) return null;
+
+            return usuario;
+        }
     }
 }

@@ -18,5 +18,20 @@ namespace Finance.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var removido = await _context.Usuario.FindAsync(id);
+
+            if (removido != null) {
+                _context.Usuario.Remove(removido);
+                await _context.SaveChangesAsync();
+
+            }
+
+        }
+
+        public async Task<Usuario?> GetByEmailAsync(string email) { 
+            return await _context.Usuario.FirstOrDefaultAsync(u => u.Email == email); 
+        }
     }
 }
