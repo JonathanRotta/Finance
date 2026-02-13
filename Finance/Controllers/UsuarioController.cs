@@ -27,10 +27,14 @@ namespace Finance.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(CreateUsuarioDTO usuario) {
             var resultado = await _service.CriarUsuario(usuario);
+            if(resultado == null)
+            {
+                return BadRequest("Este e-mail ja está cadastrado");
+            }
             return Ok(resultado);
         }
 
-        [HttpPut({"{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, CreateUsuarioDTO request)
         {
             await _service.AlterarUsuario(id, request);

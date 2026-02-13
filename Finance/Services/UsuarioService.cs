@@ -20,14 +20,22 @@ namespace Finance.Services
 
         public async Task<Usuario> CriarUsuario(CreateUsuarioDTO request)
         {
+            var emailExistente = await _repository.GetByEmailAsync(request.Email);
 
+            if (emailExistente != null) {
+
+                return null;
+            
+            }
             var usuario = new Usuario
             {
                 Nome = request.Nome,
                 Email = request.Email,
                 Senha = request.Senha,
             };
-            
+
+           
+
             await _repository.AddAsync(usuario);
             return usuario;
         }
