@@ -13,6 +13,12 @@ namespace Finance.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Usuario>> GetAllAsync()
+        {
+            return await _context.Usuario.ToListAsync();
+            
+        }
+
         public async Task AddAsync(Usuario usuario){
             await _context.Usuario.AddAsync(usuario);
             await _context.SaveChangesAsync();

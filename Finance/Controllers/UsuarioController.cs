@@ -17,6 +17,13 @@ namespace Finance.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Usuario>>> Get() { 
+
+            return Ok(await _service.BuscarUsuarios());
+        
+        }
+        
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(CreateUsuarioDTO usuario){
             var resultado = await _service.CriarUsuario(usuario);
@@ -30,6 +37,7 @@ namespace Finance.Controllers
         
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
@@ -40,7 +48,6 @@ namespace Finance.Controllers
                
                 return Unauthorized(new { message = "E-mail ou senha inválidos!" });
             }
-
       
             return Ok(new
             {

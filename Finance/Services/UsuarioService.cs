@@ -13,6 +13,11 @@ namespace Finance.Services
             _repository = repository;
         }
 
+        public async Task<IEnumerable<Usuario>> BuscarUsuarios()
+        {
+            return await _repository.GetAllAsync();
+        }
+
         public async Task<Usuario> CriarUsuario(CreateUsuarioDTO request)
         {
 
@@ -34,6 +39,9 @@ namespace Finance.Services
 
         }
 
+
+
+
         public async Task<Usuario?> ValidarLogin(LoginDTO login)
         {
             var usuario = await _repository.GetByEmailAsync(login.Email);
@@ -44,5 +52,7 @@ namespace Finance.Services
 
             return usuario;
         }
+
+
     }
 }

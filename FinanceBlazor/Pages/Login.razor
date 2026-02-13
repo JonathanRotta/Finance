@@ -1,0 +1,52 @@
+﻿@page "/login"
+@using Finance.DTOs
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="text-center">Login</h3>
+                    <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+                        <div class="mb-3">
+                            <label>E-mail:</label>
+                            <InputText @bind-Value="loginModel.Email" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Senha:</label>
+                            <InputText @bind-Value="loginModel.Senha" type="password" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    </EditForm>
+
+                    @if (exibirErro)
+                    {
+                        <div class="alert alert-danger mt-3">Usuário ou senha inválidos!</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginDTO loginModel = new();
+    private bool exibirErro = false;
+
+    private async Task HandleLogin()
+    {
+        exibirErro = false;
+        var response = await Http.PostAsJsonAsync("api/usuario/login", loginModel);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            exibirErro = true;
+        }
+    }
+}
