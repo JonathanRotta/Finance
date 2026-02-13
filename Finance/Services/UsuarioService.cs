@@ -32,15 +32,27 @@ namespace Finance.Services
             return usuario;
         }
 
+        public async Task AlterarUsuario(int id, CreateUsuarioDTO request)
+        {
+            var usuarioExistente = await _repository.GetByIdAsync(id);
+
+            if(usuarioExistente != null)
+            {
+                usuarioExistente.Nome = request.Nome;
+                usuarioExistente.Email = request.Email;
+                usuarioExistente.Senha = request.Senha;
+            }
+
+            await _repository.UpdateAsync(usuarioExistente);
+
+        }
+
         public async Task RemoverUsuario(int id)
         {
 
             await _repository.DeleteAsync(id);
 
         }
-
-
-
 
         public async Task<Usuario?> ValidarLogin(LoginDTO login)
         {

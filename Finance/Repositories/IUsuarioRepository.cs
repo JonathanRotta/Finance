@@ -9,6 +9,10 @@ namespace Finance.Repositories
         Task<IEnumerable<Usuario>> GetAllAsync();
         Task AddAsync(Usuario usuario);
 
+        Task UpdateAsync(Usuario usuario);
+
+        Task<Usuario> GetByIdAsync(int id);
+
         Task DeleteAsync(int id);
 
         Task<Usuario?> GetByEmailAsync(string email);

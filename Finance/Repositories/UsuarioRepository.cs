@@ -1,6 +1,8 @@
 ﻿using Finance.Data;
 using Finance.Data;
+using Finance.DTOs;
 using Finance.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 namespace Finance.Repositories
@@ -19,10 +21,26 @@ namespace Finance.Repositories
             
         }
 
+        public async Task<Usuario> GetByIdAsync(int id)
+        {
+            return await _context.Usuario.FindAsync(id);
+        }
+
         public async Task AddAsync(Usuario usuario){
             await _context.Usuario.AddAsync(usuario);
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task UpdateAsync(Usuario usuario)
+        {
+            _context.Usuario.Update(usuario);
+            await _context.SaveChangesAsync();
+        
+        }
+            
+
+         
 
         public async Task DeleteAsync(int id)
         {
